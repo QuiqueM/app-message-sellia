@@ -1,2 +1,6 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
+
+.bg-primary {
+  background-color: #2255ff; /* color sellia */
+}

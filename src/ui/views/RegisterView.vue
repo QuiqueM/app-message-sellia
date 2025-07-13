@@ -1,5 +1,7 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4">
+  <div
+    class="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4"
+  >
     <div class="max-w-md w-full space-y-8">
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
         <!-- Header -->
@@ -47,16 +49,17 @@
           />
 
           <!-- Submit Button -->
-          <Button type="submit" variant="primary">
-            Crear Cuenta
-          </Button>
+          <Button type="submit" variant="primary"> Crear Cuenta </Button>
         </Form>
 
         <!-- Login Link -->
         <div class="mt-6 text-center">
           <p class="text-gray-600 dark:text-gray-300">
             ¿Ya tienes una cuenta?
-            <RouterLink to="/login" class="text-green-600 dark:text-green-400 hover:text-green-700 font-medium">
+            <RouterLink
+              to="/login"
+              class="text-green-600 dark:text-green-400 hover:text-green-700 font-medium"
+            >
               Inicia sesión aquí
             </RouterLink>
           </p>
@@ -69,49 +72,27 @@
 <script setup lang="ts">
 import { Form } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
-import { z } from 'zod'
 import { useRouter } from 'vue-router'
-import InputText from '../components/InputText.vue'
-import Button from '../components/Button.vue'
+import InputText from '@components/molecules/InputText.vue'
+import Button from '@components/atoms/Button.vue'
+import { FormUserRegisterSchema, type FormUserRegister } from '@/modules/users/domain/RegisterUser'
+import { useUser } from '@/composables/useUser'
 
 const router = useRouter()
+const { registerUser } = useUser()
 
 // Schema de validación con Zod
-const registerSchema = toTypedSchema(
-  z.object({
-    name: z
-      .string()
-      .min(1, 'El nombre es requerido')
-      .min(2, 'El nombre debe tener al menos 2 caracteres'),
-    email: z
-      .string()
-      .min(1, 'El correo electrónico es requerido')
-      .email('Ingresa un correo electrónico válido'),
-    password: z
-      .string()
-      .min(1, 'La contraseña es requerida')
-      .min(6, 'La contraseña debe tener al menos 6 caracteres'),
-    confirmPassword: z
-      .string()
-      .min(1, 'Confirma tu contraseña')
-  }).refine((data) => data.password === data.confirmPassword, {
-    message: "Las contraseñas no coinciden",
-    path: ["confirmPassword"],
-  })
-)
+const registerSchema = toTypedSchema(FormUserRegisterSchema)
 
 // Función para manejar el envío del formulario
-const onSubmit = async (values: Record<string, string>) => {
+const onSubmit = async (data: FormUserRegister) => {
   try {
-    console.log('Datos del formulario:', values)
-    // Aquí iría la lógica de registro
-    // Por ahora solo simulamos un delay
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    
+    await registerUser(data)
+
     // Redirigir al login después del registro exitoso
     router.push('/login')
   } catch (error) {
     console.error('Error en el registro:', error)
   }
 }
-</script> 
+</script>

@@ -38,6 +38,13 @@ const { toggleDarkMode, isDark } = useDarkMode()
           >
             Registrarse
           </RouterLink>
+          <RouterLink 
+            to="/chat" 
+            class="text-gray-600 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors"
+            active-class="text-blue-600 dark:text-blue-400"
+          >
+            Chat
+          </RouterLink>
           <button
             @click="toggleDarkMode"
             class="ml-4 px-3 py-2 rounded text-sm font-medium transition-colors bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200"

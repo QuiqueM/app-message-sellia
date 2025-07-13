@@ -8,7 +8,7 @@
       { 'opacity-50 cursor-not-allowed': disabled }
     ]"
   >
-    <slot />
+    <slot  />
   </button>
 </template>
 
@@ -30,7 +30,7 @@ const props = withDefaults(defineProps<Props>(), {
 // Clases CSS según la variante
 const variantClasses = computed(() => {
   const baseClasses = 'text-white'
-  
+
   switch (props.variant) {
     case 'primary':
       return `${baseClasses} bg-blue-600 hover:bg-blue-700 focus:ring-blue-500`
@@ -49,4 +49,4 @@ const variantClasses = computed(() => {
 defineOptions({
   name: 'AppButton'
 })
-</script> 
+</script>
