@@ -1,39 +1,127 @@
-# .
+# Documentación Técnica: app-message-sellia
 
-This template should help get you started developing with Vue 3 in Vite.
+## Descripción General
+Aplicación web de mensajería y gestión de usuarios desarrollada con Vue 3, Pinia, Vite y Tailwind. Incluye autenticación, chat, internacionalización y pruebas automatizadas.
 
-## Recommended IDE Setup
+---
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Estructura de Carpetas
 
-## Type Support for `.vue` Imports in TS
+- **src/**
+  - **App.vue, main.ts:** Entrada principal.
+  - **assets/**: Estilos y recursos.
+  - **composables/**: Hooks personalizados (ej. useUser, useDarkMode).
+  - **modules/users/**: Lógica de dominio, adapters y casos de uso para usuarios.
+  - **router/**: Configuración de rutas y guards.
+  - **stores/**: Pinia stores.
+  - **types/**: Tipos TypeScript.
+  - **ui/components/**: Componentes atómicos, moléculas, vistas e iconos SVG.
+    - **atoms/**, **chat/**, **icons/**, **views/** (ej. LoginView.vue, ChatView.vue).
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+---
 
-## Customize configuration
+## Principales Tecnologías
+- **Vue 3** (Composition API)
+- **Pinia** (gestión de estado)
+- **Vue Router** (ruteo)
+- **Tailwind CSS** (estilos)
+- **Vite** (build y dev server)
+- **Vitest** + **@vue/test-utils** (testing)
+- **VeeValidate** (validación de formularios)
+- **i18n** (internacionalización)
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+---
 
-## Project Setup
+## Funcionalidades
 
-```sh
-npm install
+### Autenticación
+- Registro y login de usuarios.
+- Validación de formularios con VeeValidate.
+- Manejo de errores y feedback visual.
+
+### Chat
+- Vistas y componentes para chat.
+- Scroll automático y lógica responsive.
+- Skeleton loaders para UX.
+
+### UI/UX
+- Diseño responsive y mobile.
+- Iconos SVG personalizados.
+- Skeleton loaders y feedback visual.
+
+### Internacionalización
+- Uso de `$t` para textos traducibles.
+- Mock de `$t` en pruebas.
+
+### Testing
+- Pruebas unitarias y de componentes.
+- Mocks y stubs de dependencias (Pinia, i18n, composables).
+- Corrección de errores comunes: entorno DOM, mocks de ESM, eventos en stubs.
+
+---
+
+## Configuración
+
+### Alias
+- Configurados en `vite.config.ts` y `tsconfig.json` para rutas cortas (`@views`, `@composables`, etc.).
+
+### Vitest
+- Configurado con entorno `jsdom` en `vitest.config.ts`.
+- Pruebas en `src/test/composables/` y `src/test/views/`.
+
+### Mocks
+- Mock de `inject` para composables.
+- Mock de `$t` para i18n en vistas.
+- Stubs de componentes en pruebas.
+
+---
+
+## Ejemplo de Test de Composable
+```typescript
+vi.mock('vue', async () => {
+  const actual = await vi.importActual<typeof import('vue')>('vue')
+  return {
+    ...actual,
+    inject: () => mockUserProvider
+  }
+})
 ```
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
+## Ejemplo de Test de Vista
+```typescript
+wrapper = mount(LoginView, {
+  global: {
+    stubs: ['Form', 'InputText', 'Button'],
+    mocks: { $t: (msg: string) => msg }
+  }
+})
 ```
 
-### Type-Check, Compile and Minify for Production
+---
 
-```sh
-npm run build
-```
+## Buenas Prácticas
+- Separación de lógica de dominio y presentación.
+- Uso de mocks y stubs para aislar dependencias en tests.
+- Alias para rutas cortas y mantenibles.
+- Configuración de entorno DOM para pruebas de componentes.
 
-### Lint with [ESLint](https://eslint.org/)
+---
 
-```sh
-npm run lint
-```
+## Requisitos para Desarrollo
+- Node.js >= 18
+- npm >= 9
+- Instalar dependencias: `npm install`
+- Ejecutar en desarrollo: `npm run dev`
+- Ejecutar tests: `npm run test`
+
+---
+
+## Contacto y Mantenimiento
+- Owner: QuiqueM
+- Rama principal: main
+
+---
+
+## Notas
+- El proyecto está preparado para escalar y agregar nuevos módulos.
+- La arquitectura facilita la mantenibilidad y el testing.
