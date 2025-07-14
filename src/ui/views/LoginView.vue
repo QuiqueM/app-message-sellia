@@ -38,7 +38,7 @@
           />
 
           <!-- Submit Button -->
-          <Button type="submit" variant="primary" :loading="true" :disabled="loading">
+          <Button type="submit" variant="primary" :disabled="loading">
            <span v-if="!loading"> {{ $t('navBar.login') }} </span>
            <span v-else class="flex justify-center"><icon icon-name="spinner" /> </span>
           </Button>
@@ -85,7 +85,6 @@ const loginSchema = toTypedSchema(FormUserLoginSchema)
 const onSubmit = async (values: FormUserLogin) => {
   try {
     loading.value = true
-    console.log('Datos del formulario:', values)
     const isLogged = await loginUser(values)
     loading.value = false
     if (isLogged) {

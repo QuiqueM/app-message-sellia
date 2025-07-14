@@ -9,6 +9,6 @@ const messages = {
   [Locales.ES]: { ...sectionsEs },
 }
 
-const defaultLocale = localStorage.getItem('lang') as Locales || Locales.ES
+const defaultLocale =  Locales.ES
 
 export { messages, defaultLocale }

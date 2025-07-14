@@ -10,6 +10,8 @@ import IconSend from './IconSend.vue'
 import IconSpinner from './IconSpinner.vue'
 import IconSettings from './IconSettings.vue'
 import IconLogout from './IconLogout.vue'
+import IconArrowLeft from './IconArrowLeft.vue'
+import IconClose from './IconClose.vue'
 
 export const iconComponents: Record<string, Component> = {
   plus: IconPlus,
@@ -23,4 +25,7 @@ export const iconComponents: Record<string, Component> = {
   spinner: IconSpinner,
   settings: IconSettings,
   logout: IconLogout,
+  arrowLeft: IconArrowLeft,
+  close: IconClose,
+
 }

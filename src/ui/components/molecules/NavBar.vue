@@ -4,8 +4,19 @@ import IconLogo from '@components/icons/IconLogo.vue'
 import AvatarUser from '@components/atoms/AvatarUser.vue'
 import { useAuthStore } from '@/stores/auth'
 import IconButton from '@components/atoms/IconButton.vue'
+import { useRouter } from 'vue-router'
 
 const authStore = useAuthStore()
+const router = useRouter()
+
+const logout = () => {
+  authStore.logout()
+  router.push('/login')
+}
+
+const goToSettings = () => {
+  router.push('/settings')
+}
 </script>
 <template>
   <header
@@ -34,7 +45,7 @@ const authStore = useAuthStore()
               {{ $t('navBar.register') }}
             </RouterLink>
           </div>
-          <div v-else class="flex items-center space-x-2">
+          <div v-else class="hidden md:flex items-center space-x-2">
             <avatar-user avatar="" :name="authStore.loggedUser!.name" :is-online="false" />
             <div class="grid items-center">
               <h3 class="text-sm font-medium text-gray-900 dark:text-white truncate">
@@ -45,8 +56,8 @@ const authStore = useAuthStore()
           </div>
 
           <div class="flex items-center space-x-2" v-if="authStore.isAuthenticated">
-            <IconButton icon="settings" />
-            <IconButton icon="logout" />
+            <IconButton icon="settings" @click="goToSettings" />
+            <IconButton icon="logout" @click="logout" />
           </div>
         </nav>
       </div>

@@ -2,8 +2,10 @@
   <div class="h-[calc(100vh-4rem)] bg-gray-100 dark:bg-gray-900 flex">
     <!-- Sidebar - Lista de chats -->
     <ChatSidebar
+      v-if="showChatSidebar"
       :chats="chats"
       :selected-chat="selectedChat"
+      :loading="loading"
       @select-chat="selectChat"
       @new-chat="createNewChat"
     />
@@ -14,10 +16,11 @@
       :chat="selectedChat"
       :messages="currentMessages"
       @send-message="sendMessage"
+      @return-chats="returnChats"
     />
 
     <!-- Estado inicial cuando no hay chat seleccionado -->
-    <div v-else class="flex-1 flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
+    <div v-else class="hidden flex-1 md:flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
       <div class="text-center">
         <div
           class="w-24 h-24 mx-auto mb-4 bg-primary rounded-full flex items-center justify-center"
@@ -36,25 +39,31 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import ChatSidebar from '@components/chat/ChatSidebar.vue'
-import ChatMain from '@components/chat/ChatMain.vue'
-import type { Chat, Message } from '../../types/chat'
+import { ref, onMounted, computed } from 'vue'
+import ChatSidebar from '@components/molecules/chat/ChatSidebar.vue'
+import ChatMain from '@components/molecules/chat/ChatMain.vue'
+import type { Chat, Message } from '@/types/chat'
 import { useCustomer } from '@/composables/useCustomer'
 import { useMessage } from '@/composables/useMessage'
 import { useMessageStore } from '@/stores/messages'
+import { useDeviceType } from '@/composables/useDeviceType'
 
 const { getAllCustomers } = useCustomer()
 const { getChatByUserId } = useMessage()
 const messageStore = useMessageStore()
+const { isMobile } = useDeviceType()
 
 // Estado de la aplicación
 const chats = ref<Chat[]>([])
-
 const selectedChat = ref<Chat | null>(null)
+const loading = ref(false)
 
 // Mensajes del chat seleccionado
 const currentMessages = ref<Message[]>([])
+
+const showChatSidebar = computed(() => {
+  return isMobile.value ? !selectedChat.value : true
+})
 
 // Métodos
 const selectChat = async (chat: Chat) => {
@@ -105,6 +114,10 @@ const sendMessage = (text: string) => {
   }, 2000)
 }
 
+const returnChats = () => {
+  selectedChat.value = null
+}
+
 const createNewChat = () => {
   // Lógica para crear nuevo chat
   console.log('Crear nuevo chat')
@@ -112,6 +125,7 @@ const createNewChat = () => {
 
 onMounted(async () => {
   // Cargar clientes al iniciar
+  loading.value = true
   const customers = await getAllCustomers()
   chats.value = customers.map((customer) => ({
     id: customer._id,
@@ -122,5 +136,6 @@ onMounted(async () => {
     unreadCount: Math.floor(Math.random() * 5) + 1,
     isOnline: true,
   }))
+  loading.value = false
 })
 </script>

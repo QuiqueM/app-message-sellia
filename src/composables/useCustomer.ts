@@ -1,24 +1,25 @@
-import { inject } from "vue";
-import type { Customer } from "@/modules/customers/domain/Customer";
-import type { CustomerProvider } from "@/dependencies/CustomerProvider";
+import { inject } from 'vue'
+import type { Customer } from '@/modules/customers/domain/Customer'
+import type { CustomerProvider } from '@/dependencies/CustomerProvider'
+import { Success } from '@/modules/shared/EasyResult'
 
 export const useCustomer = () => {
-  const customerProvider = inject<CustomerProvider>('customerProvider');
+  const customerProvider = inject<CustomerProvider>('customerProvider')
 
   if (!customerProvider) {
-    throw new Error('CustomerProvider not found');
+    throw new Error('CustomerProvider not found')
   }
 
   const getAllCustomers = async (): Promise<Customer[]> => {
-    try {
-      return await customerProvider.getAllCustomersUseCase.execute();
-    } catch (error) {
-      console.error('Error fetching customers:', error);
-      throw new Error('Failed to fetch customers');
+    const response = await customerProvider.getAllCustomersUseCase.execute()
+    if (Success.check(response)) {
+      return response.value!
     }
-  };
+
+    return []
+  }
 
   return {
     getAllCustomers,
-  };
-};
+  }
+}

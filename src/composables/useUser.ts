@@ -34,8 +34,13 @@ export const useUser = () => {
     }
   }
 
+  const logoutUser = () => {
+    authStore.logout()
+  }
+
   return {
     registerUser,
     loginUser,
+    logoutUser,
   }
 }

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Form } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useRouter } from 'vue-router'
@@ -6,9 +7,12 @@ import InputText from '@components/molecules/InputText.vue'
 import Button from '@components/atoms/Button.vue'
 import { FormUserRegisterSchema, type FormUserRegister } from '@/modules/users/domain/RegisterUser'
 import { useUser } from '@/composables/useUser'
+import Icon from '@components/icons/IconComponent.vue'
 
 const router = useRouter()
 const { registerUser } = useUser()
+
+const loading = ref(false)
 
 // Schema de validación con Zod
 const registerSchema = toTypedSchema(FormUserRegisterSchema)
@@ -16,8 +20,9 @@ const registerSchema = toTypedSchema(FormUserRegisterSchema)
 // Función para manejar el envío del formulario
 const onSubmit = async (data: FormUserRegister) => {
   try {
+    loading.value = true
     await registerUser(data)
-
+    loading.value = false
     // Redirigir al login después del registro exitoso
     router.push('/login')
   } catch (error) {
@@ -76,7 +81,10 @@ const onSubmit = async (data: FormUserRegister) => {
           />
 
           <!-- Submit Button -->
-          <Button type="submit" variant="primary"> {{ $t('labels.createAccount') }} </Button>
+          <Button type="submit" variant="primary" :disabled="loading">
+            <span v-if="!loading"> {{ $t('labels.createAccount') }} </span>
+            <span v-else class="flex justify-center"><icon icon-name="spinner" /> </span>
+          </Button>
         </Form>
 
         <!-- Login Link -->

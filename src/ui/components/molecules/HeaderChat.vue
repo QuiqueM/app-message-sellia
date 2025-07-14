@@ -9,11 +9,17 @@ interface Props {
 }
 
 defineProps<Props>()
+const emit = defineEmits(['return-chats'])
+
+const returnChats = () => {
+  emit('return-chats')
+}
 </script>
 
 <template>
   <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4">
     <div class="flex items-center">
+      <icon-button class="flex md:hidden" icon="arrowLeft" @click="returnChats" />
       <Avatar :avatar="avatar" :name="name" :is-online="isOnline" />
 
       <!-- Información del contacto -->

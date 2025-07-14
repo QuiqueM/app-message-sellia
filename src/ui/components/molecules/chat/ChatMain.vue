@@ -1,7 +1,7 @@
 <template>
   <div class="flex-1 flex flex-col bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
     <!-- Header del chat -->
-    <HeaderChat :avatar="chat.avatar" :name="chat.name" :is-online="chat.isOnline" />
+    <HeaderChat :avatar="chat.avatar" :name="chat.name" :is-online="chat.isOnline" @return-chats="$emit('return-chats')" />
 
     <!-- Área de mensajes -->
     <div class="flex-1 overflow-y-auto p-4 space-y-4" ref="messagesContainer">
@@ -44,7 +44,9 @@ import { ref, watch, nextTick } from 'vue';
 const props = defineProps<{ chat: Chat; messages: Message[] }>()
 
 const emit = defineEmits<{
-  'send-message': [text: string]
+  'send-message': [text: string],
+  'return-chats': []
+
 }>()
 
 const messagesContainer = ref<HTMLElement | null>(null);
