@@ -13,7 +13,9 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   const login = (credentials: FormUserLogin) => {
-    const user = registeredUsers.value.find(u => u.email === credentials.email && u.password === credentials.password)
+    const user = registeredUsers.value.find(
+      (u) => u.email === credentials.email && u.password === credentials.password
+    )
     if (user) {
       loggedUser.value = user
       return true
@@ -21,5 +23,5 @@ export const useAuthStore = defineStore('auth', () => {
     return false
   }
 
-  return { registeredUsers, isAuthenticated, addUser, login  }
+  return { registeredUsers, isAuthenticated, addUser, login, loggedUser }
 })

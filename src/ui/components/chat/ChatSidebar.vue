@@ -9,7 +9,7 @@
 
       <!-- Barra de búsqueda -->
       <div class="mt-4 ">
-        <input-search v-model="searchQuery" placeholder="Buscar o iniciar un nuevo chat" />
+        <input-search v-model="searchQuery" :placeholder="$t('chat.findOrCreateChat')" />
       </div>
     </div>
 

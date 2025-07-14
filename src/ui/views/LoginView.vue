@@ -1,18 +1,18 @@
 <template>
   <div
-    class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4"
+    class="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4"
   >
     <div class="max-w-md w-full space-y-8">
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
         <!-- Header -->
         <div class="text-center mb-8">
-          <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Iniciar Sesión</h2>
-          <p class="text-gray-600 dark:text-gray-300">Ingresa tus credenciales para continuar</p>
+          <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">{{ $t('navBar.login') }}</h2>
+          <p class="text-gray-600 dark:text-gray-300"> {{ $t('labels.loginDescription') }}</p>
         </div>
 
         <div v-if="showAlert" class="mb-4">
           <AlertMessage
-            message="Credenciales incorrectas. Por favor, intenta nuevamente."
+            :message="$t('labels.credentialError')"
             type="error"
           />
         </div>
@@ -23,7 +23,7 @@
           <InputText
             name="email"
             type="email"
-            label="Correo Electrónico"
+            :label="$t('labels.email')"
             placeholder="tu@email.com"
             focus-ring-color="focus:ring-blue-500"
           />
@@ -32,14 +32,14 @@
           <InputText
             name="password"
             type="password"
-            label="Contraseña"
+            :label="$t('labels.password')"
             placeholder="••••••••"
             focus-ring-color="focus:ring-blue-500"
           />
 
           <!-- Submit Button -->
           <Button type="submit" variant="primary" :loading="true" :disabled="loading">
-           <span v-if="!loading"> Iniciar Sesión </span>
+           <span v-if="!loading"> {{ $t('navBar.login') }} </span>
            <span v-else class="flex justify-center"><icon icon-name="spinner" /> </span>
           </Button>
         </Form>
@@ -47,12 +47,12 @@
         <!-- Register Link -->
         <div class="mt-6 text-center">
           <p class="text-gray-600 dark:text-gray-300">
-            ¿No tienes una cuenta?
+            {{ $t('labels.notAccount') }}
             <RouterLink
               to="/register"
               class="text-blue-600 dark:text-blue-400 hover:text-blue-700 font-medium"
             >
-              Regístrate aquí
+              {{ $t('labels.registerHere') }}
             </RouterLink>
           </p>
         </div>

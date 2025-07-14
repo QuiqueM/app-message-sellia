@@ -8,6 +8,8 @@ import IconEmoji from './IconEmoji.vue'
 import IconClip from './IconClip.vue'
 import IconSend from './IconSend.vue'
 import IconSpinner from './IconSpinner.vue'
+import IconSettings from './IconSettings.vue'
+import IconLogout from './IconLogout.vue'
 
 export const iconComponents: Record<string, Component> = {
   plus: IconPlus,
@@ -19,4 +21,6 @@ export const iconComponents: Record<string, Component> = {
   clip: IconClip,
   send: IconSend,
   spinner: IconSpinner,
+  settings: IconSettings,
+  logout: IconLogout,
 }

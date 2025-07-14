@@ -18,7 +18,7 @@ const getInitials = (name: string): string => {
   <!-- Avatar -->
   <div class="relative">
     <img v-if="avatar" :src="avatar" :alt="name" class="w-12 h-12 rounded-full object-cover" />
-    <div v-else class="w-12 h-12 bg-gray-300 dark:bg-gray-700 rounded-full flex items-center justify-center text-white">
+    <div v-else class="size-12 bg-gray-300 dark:bg-gray-700 rounded-full flex items-center justify-center text-white">
       {{ getInitials(name) }}
     </div>
     <!-- Indicador de online -->

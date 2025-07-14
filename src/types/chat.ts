@@ -14,4 +14,9 @@ export interface Message {
   timestamp: string
   isOwn: boolean
   status: 'sent' | 'delivered' | 'read'
-} 
+}
+
+export interface Conversation {
+  clientId: string
+  messages: Message[]
+}
