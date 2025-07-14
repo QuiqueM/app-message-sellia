@@ -1,10 +1,8 @@
 <template>
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    data-name="Layer 1"
     viewBox="0 0 1636.97 515.2"
     class="log h-[40px]"
-    data-test-id="selliaLandingLogo"
   >
     <path
       fill="#0e0d13"

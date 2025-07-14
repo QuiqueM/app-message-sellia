@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label v-if="label" :for="inputId" class="block text-sm font-medium text-gray-700 mb-2">
+    <label v-if="label" :for="inputId" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
       {{ label }}
     </label>
     <Field
@@ -13,7 +13,7 @@
         :id="inputId"
         :type="type"
         :placeholder="placeholder"
-        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent transition duration-200"
+        class="w-full px-4 py-3 border border-gray-300 placeholder-gray-500 dark:placeholder-gray-400 rounded-lg focus:ring-2 focus:border-transparent transition duration-200"
         :class="[
           focusRingColor,
           { 'border-red-500': errorMessage }
@@ -52,4 +52,4 @@ const inputId = computed(() => props.id || props.name)
 defineOptions({
   name: 'InputText'
 })
-</script> 
+</script>
