@@ -4,9 +4,10 @@
 ## Descripción General
 app-message-sellia es una aplicación web de mensajería y gestión de usuarios, construida con Vue 3 y una arquitectura limpia y modular. El proyecto enfatiza la separación de responsabilidades, la escalabilidad y la mantenibilidad, integrando autenticación, chat, internacionalización y pruebas automatizadas.
 
-![login-mobile](image-1.png)
-![list-chats](image-2.png)
-![chat-main](image-3.png)
+
+<img src="image-1.png" alt="login-mobile" width="320" height="600" />
+<img src="image-2.png" alt="list-chats" width="320" height="600" />
+<img src="image-3.png" alt="chat-main" width="320" height="600" />
 
 ---
 
@@ -216,8 +217,9 @@ wrapper = mount(LoginView, {
 - La aplicación incluye modo oscuro, permitiendo a los usuarios alternar entre tema claro y oscuro para mayor comodidad visual.
 - Se puede cambiar el tamaño de la fuente desde la interfaz, facilitando la lectura para personas con baja visión o preferencias de accesibilidad.
 
-![settings](image-4.png)
-![alt text](image-5.png)
+
+<img src="image-4.png" alt="settings" width="320" height="600" />
+<img src="image-5.png" alt="accesibilidad" width="820" height="600" />
 
 ---
 
