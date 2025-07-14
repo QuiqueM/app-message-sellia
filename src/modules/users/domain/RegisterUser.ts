@@ -5,6 +5,7 @@ export const UserSchema = z.object({
   name: z
     .string()
     .min(1, 'El nombre es requerido')
+    .max(50, 'El nombre no puede exceder los 50 caracteres')
     .min(4, 'El nombre debe tener al menos 4 caracteres'),
   email: z
     .string()

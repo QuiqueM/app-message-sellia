@@ -18,7 +18,7 @@
         </div>
 
         <!-- Login Form -->
-        <Form :validation-schema="loginSchema" @submit="onSubmit" class="space-y-6">
+        <Form :validation-schema="loginSchema" @submit="onSubmit" class="space-y-6" v-slot="{ meta }">
           <!-- Email Field -->
           <InputText
             name="email"
@@ -38,7 +38,7 @@
           />
 
           <!-- Submit Button -->
-          <Button type="submit" variant="primary" :disabled="loading">
+          <Button type="submit" variant="primary" :disabled="loading || !meta.valid">
            <span v-if="!loading"> {{ $t('navBar.login') }} </span>
            <span v-else class="flex justify-center"><icon icon-name="spinner" /> </span>
           </Button>

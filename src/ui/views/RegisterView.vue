@@ -43,7 +43,7 @@ const onSubmit = async (data: FormUserRegister) => {
         </div>
 
         <!-- Register Form -->
-        <Form :validation-schema="registerSchema" @submit="onSubmit" class="space-y-6">
+        <Form :validation-schema="registerSchema" @submit="onSubmit" v-slot="{ meta }" class="space-y-6">
           <!-- Name Field -->
           <InputText
             name="name"
@@ -81,7 +81,7 @@ const onSubmit = async (data: FormUserRegister) => {
           />
 
           <!-- Submit Button -->
-          <Button type="submit" variant="primary" :disabled="loading">
+          <Button type="submit" variant="primary" :disabled="loading || !meta.valid">
             <span v-if="!loading"> {{ $t('labels.createAccount') }} </span>
             <span v-else class="flex justify-center"><icon icon-name="spinner" /> </span>
           </Button>
